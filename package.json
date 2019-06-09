@@ -1,0 +1,35 @@
+{
+  "name": "argonui-clientlibs",
+  "version": "0.0.1",
+  "description": "Argon UI clientlib is a helper package for Argon UI that converts regular JS or CSS package to a clientlib",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scssyworks/argonui-clientlibs.git"
+  },
+  "keywords": [
+    "ArgonUI",
+    "Clientlibs",
+    "Adobe Experience Manager",
+    "CQ",
+    "AEM"
+  ],
+  "author": "Sachin Singh <contactsachinsingh@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scssyworks/argonui-clientlibs/issues"
+  },
+  "homepage": "https://github.com/scssyworks/argonui-clientlibs#readme",
+  "devDependencies": {
+    "colors": "^1.3.3",
+    "fs-extra": "^8.0.1",
+    "xmlbuilder": "^13.0.2",
+    "yargs": "^13.2.4"
+  },
+  "bin": {
+    "create-clientlib": "./index.js"
+  }
+}
