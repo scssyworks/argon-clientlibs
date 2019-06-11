@@ -1,6 +1,6 @@
 {
   "name": "argonui-clientlibs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Argon UI clientlib is a helper package for Argon UI that converts regular JS or CSS package to a clientlib",
   "main": "index.js",
   "scripts": {
