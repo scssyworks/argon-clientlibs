@@ -87,7 +87,7 @@ try {
             paths.forEach(path => {
                 recTestFiles(`${distFolder}/${path}`, targetPath);
             });
-            console.log(colors.green(colors.bold(`Created client library at "${targetPath}"`)));
+            console.log(colors.green(`Created client library with categories "${colors.bold(categories.join(','))}"`));
         } else {
             throw new Error('3');
         }
