@@ -29,6 +29,12 @@
     "xmlbuilder": "^13.0.2",
     "yargs": "^13.2.4"
   },
+  "peerDependencies": {
+    "colors": "^1.3.3",
+    "fs-extra": "^8.0.1",
+    "xmlbuilder": "^13.0.2",
+    "yargs": "^13.2.4"
+  },
   "bin": {
     "create-clientlib": "./index.js"
   }
