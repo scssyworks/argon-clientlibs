@@ -34,7 +34,7 @@ try {
                         !fs.existsSync(`${targetPath}/${fileName}`)
                             ? 'writeFileSync'
                             : 'appendFileSync'
-                    ](`${targetPath}/${fileName}`, `${rpath.relative(targetPath, testPath)}\n`);
+                    ](`${targetPath}/${fileName}`, `${rpath.relative(targetPath, testPath).replace(/[\\]/g, '/')}\n`);
                 }
             }
             if (fileStat.isDirectory()) {
