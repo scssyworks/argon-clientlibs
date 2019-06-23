@@ -7,6 +7,7 @@ module.exports = {
         vendor: {
             categories: ['argonui.vendor'],
             basePath: `${clientlibDist}/${projectName}/clientlibs/vendor.publish`,
+            dependencies: ['granite.jquery'],
             paths: [
                 `${clientlibDist}/${projectName}/clientlibs/vendor.publish`
             ]

@@ -52,7 +52,7 @@ try {
     }
     Object.keys(clientlibsConfig).forEach(clientlib => {
         const currentConfig = clientlibsConfig[clientlib];
-        const { basePath, categories = [], jsProcessor = [], cssProcessor = [], paths = [] } = currentConfig;
+        const { basePath, categories = [], jsProcessor = [], cssProcessor = [], paths = [], dependencies = [] } = currentConfig;
         if (basePath) {
             const targetPath = `${distFolder}/${basePath}`;
             if (!fs.existsSync(targetPath)) {
@@ -76,6 +76,9 @@ try {
             }
             if (cssProcessor.length) {
                 content['jcr:root']['@cssProcessor'] = `[${cssProcessor.join(';')}]`;
+            }
+            if (dependencies.length) {
+                content['jcr:root']['@dependencies'] = `[${dependencies.join(';')}]`;
             }
             const xml = xmlbuilder.create(content, {
                 encoding: 'UTF-8'
