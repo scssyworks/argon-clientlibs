@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const colors = require('chalk').default;
+const colors = require('chalk');
 const xmlbuilder = require('xmlbuilder');
 const fs = require('fs-extra');
 const rpath = require('path');
