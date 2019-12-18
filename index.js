@@ -100,10 +100,9 @@ try {
             });
             fs.writeFileSync(`${targetPath}/.content.xml`, xml);
             // Scan files and create js.txt and css.txt files
+            ignoredPaths.push(...paths.filter(path => path.startsWith('!')));
             paths.forEach(path => {
-                if (path.startsWith('!')) {
-                    ignoredPaths.push(path);
-                } else {
+                if (!path.startsWith('!')) {
                     recTestFiles(`${distFolder}/${path}`, targetPath);
                 }
             });
