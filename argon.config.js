@@ -1,19 +1,11 @@
 const clientlibDist = `apps/settings/wcm/designs`;
-const projectName = `argonui`;
+const projectName = `argon`;
 module.exports = {
     jcrRoot: 'dist/jcr_root',
     target: 'dist',
     clientlibs: {
-        vendor: {
-            categories: ['argonui.vendor'],
-            basePath: `${clientlibDist}/${projectName}/clientlibs/vendor.publish`,
-            dependencies: ['granite.jquery'],
-            paths: [
-                `${clientlibDist}/${projectName}/clientlibs/vendor.publish`
-            ]
-        },
         global: {
-            categories: ['argonui.global'],
+            categories: ['argon.global'],
             jsProcessor: [
                 'min:gcc',
                 'obfuscate=true',
@@ -22,8 +14,10 @@ module.exports = {
             ],
             basePath: `${clientlibDist}/${projectName}/clientlibs/global.publish`,
             paths: [
-                `${clientlibDist}/${projectName}/clientlibs/global.publish`,
-                `${clientlibDist}/${projectName}/clientlibs/common.publish`,
+                `!testDirectory/js`,
+                `!testDirectory/css/ignored`,
+                `testDirectory/js`,
+                `testDirectory/css`,
             ]
         }
     }

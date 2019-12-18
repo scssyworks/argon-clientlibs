@@ -4,6 +4,9 @@ const xmlbuilder = require('xmlbuilder');
 const fs = require('fs-extra');
 const rpath = require('path');
 const argv = require('yargs').argv;
+
+const ignoredPaths = [];
+
 try {
     const configFile = argv.config || 'argon.config.js';
     const argonuiConfig = require(`${process.cwd()}/${configFile}`);
@@ -21,29 +24,38 @@ try {
         distFolder = `${process.cwd()}/${argonuiConfig.jcrRoot}`;
     }
     const clientlibsConfig = argonuiConfig.clientlibs;
+    function testIgnoredPaths(path) {
+        let result = false;
+        ignoredPaths.forEach(ignoredPath => {
+            result = result || path.includes(ignoredPath.substring(1))
+        });
+        return result;
+    }
     // Recursive function to scan and create respective js and css text files
     function recTestFiles(testPath, targetPath) {
         if (fs.existsSync(testPath)) {
-            const fileStat = fs.lstatSync(testPath);
-            if (fileStat.isFile()) {
-                const matches = testPath.match(/\.(js|css|less)$/);
-                if (matches && matches.length && matches[1]) {
-                    const ext = matches[1] === 'less' ? 'css' : matches[1];
-                    const fileName = `${ext}.txt`;
-                    fs[
-                        !fs.existsSync(`${targetPath}/${fileName}`)
-                            ? 'writeFileSync'
-                            : 'appendFileSync'
-                    ](`${targetPath}/${fileName}`, `${rpath.relative(targetPath, testPath).replace(/[\\]/g, '/')}\n`);
+            if (!testIgnoredPaths(testPath)) {
+                const fileStat = fs.lstatSync(testPath);
+                if (fileStat.isFile()) {
+                    const matches = testPath.match(/\.(js|css|less)$/);
+                    if (matches && matches.length && matches[1]) {
+                        const ext = matches[1] === 'less' ? 'css' : matches[1];
+                        const fileName = `${ext}.txt`;
+                        fs[
+                            !fs.existsSync(`${targetPath}/${fileName}`)
+                                ? 'writeFileSync'
+                                : 'appendFileSync'
+                        ](`${targetPath}/${fileName}`, `${rpath.relative(targetPath, testPath).replace(/[\\]/g, '/')}\n`);
+                    }
                 }
-            }
-            if (fileStat.isDirectory()) {
-                // Recursively scan directory
-                const files = fs.readdirSync(testPath);
-                if (files.length) {
-                    files.forEach(file => {
-                        recTestFiles(`${testPath}/${file}`, targetPath);
-                    });
+                if (fileStat.isDirectory()) {
+                    // Recursively scan directory
+                    const files = fs.readdirSync(testPath);
+                    if (files.length) {
+                        files.forEach(file => {
+                            recTestFiles(`${testPath}/${file}`, targetPath);
+                        });
+                    }
                 }
             }
         } else {
@@ -51,6 +63,7 @@ try {
         }
     }
     Object.keys(clientlibsConfig).forEach(clientlib => {
+        ignoredPaths.length = 0;
         const currentConfig = clientlibsConfig[clientlib];
         const { basePath, categories = [], jsProcessor = [], cssProcessor = [], paths = [], dependencies = [] } = currentConfig;
         if (basePath) {
@@ -88,7 +101,11 @@ try {
             fs.writeFileSync(`${targetPath}/.content.xml`, xml);
             // Scan files and create js.txt and css.txt files
             paths.forEach(path => {
-                recTestFiles(`${distFolder}/${path}`, targetPath);
+                if (path.startsWith('!')) {
+                    ignoredPaths.push(path);
+                } else {
+                    recTestFiles(`${distFolder}/${path}`, targetPath);
+                }
             });
             console.log(colors.green(`Created client library with categories "${colors.bold(categories.join(','))}"`));
         } else {
