@@ -6,7 +6,7 @@ Converts a regular JS or CSS package to an AEM client library
 npm install --save-dev argon-clientlibs
 ```
 
-This package works with <a href="https://www.npmjs.com/package/argon">Argon Framework</a>. It also works independently if you look a little further.
+This package works with <a href="https://www.npmjs.com/package/argon">Argon Framework</a>. It works independently if you look a little further.
 
 # How does it work?
 
