@@ -1,12 +1,12 @@
-# ArgonUI-clientlibs
-Converts a regular javascript or css package to an AEM client library
+# Argon clientlibs
+Converts a regular JS or CSS package to an AEM client library
 
 # Install
 ```sh
-npm install --save-dev argonui-clientlibs
+npm install --save-dev argon-clientlibs
 ```
 
-This package is part of <a href="https://www.npmjs.com/package/argonui">ArgonUI Boilerplate</a>. However, it can function independently based on your project needs.
+This package works with <a href="https://www.npmjs.com/package/argon">Argon Framework</a>. It also works independently if you look a little further.
 
 # How does it work?
 
@@ -51,5 +51,5 @@ npx create-clientlib
 ```
 OR
 ```sh
-npx create-clientlib --config=someOtherFileName.config.js
+npx create-clientlib --config=someOtherConfig.js
 ```
